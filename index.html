@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cellular Automata Explorer</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="author" content="Shize Li">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="scripts/world.js" defer></script>
+    <script src="scripts/setup.js" defer></script>
+    <script src="scripts/canvas.js" defer></script>
 </head>
 <body>
-    <h1>Cellular Automata Explorer</h1>
-    <canvas></canvas>
+    <div class="text header">Cellular Automata Explorer</div>
+    <div class="text sub">Rule Table</div>
+    <div id="rule-table"></div>
+    <div class="text sub">Simulation</div>
+    <canvas id="surface" width="100px" height="100px"></canvas>
 </body>
 </html>
