@@ -1,66 +1,69 @@
-const width = 100;
-const height = 100;
+function World(w, h) {
+    this.width = w;
+    this.height = h;
 
-let world = [];
-world.length = width * height;
-world.fill(false);
-let buffer = [...world];
-let bufferPos = 0;
+    this.world = [];
+    this.world.length = this.width * this.height;
+    this.world.fill(false);
 
-let rule = [];
-rule.length = 512;
-rule.fill(false);
-
-function getCell(x, y) {
-    return world[y * width + x];
+    this.buffer = [...this.world];
+    this.bufferPos = 0;
+    
+    this.rule = [];
+    this.rule.length = 512;
+    this.rule.fill(false);
 }
 
-function setCell(x, y, s) {
-    world[y * width + x] = s;
+World.prototype.getCell = function(x, y) {
+    return this.world[y * this.width + x];
 }
 
-function flipCell(x, y) {
-    let i = y * width + x;
-    world[i] = !world[i];
+World.prototype.setCell = function(x, y, s) {
+    this.world[y * this.width + x] = s;
 }
 
-function setBuffer(s) {
-    if (bufferPos < buffer.length) {
-        buffer[bufferPos++] = s;
+World.prototype.flipCell = function(x, y) {
+    let i = y * this.width + x;
+    this.world[i] = !this.world[i];
+}
+
+World.prototype.setBuffer = function(s) {
+    if (this.bufferPos < this.buffer.length) {
+        this.buffer[this.bufferPos++] = s;
     }
 }
 
-function loadBuffer() {
-    world = [...buffer];
-    bufferPos = 0;
+World.prototype.loadBuffer = function() {
+    this.world = [...this.buffer];
+    this.bufferPos = 0;
 }
 
-function nextGen(x, y) {
+World.prototype.nextGen = function(x, y) {
     let combo = 0, pos = 0;
-    for (let i = x-1; i <= x+1; i++) {
-        for (let j = y-1; j <= y+1; j++) {
-            let mx = i % width;
-            let my = j % height;
+    for (let j = y-1; j <= y+1; j++) {
+        for (let i = x-1; i <= x+1; i++) {
+            let mx = i % this.width;
+            let my = j % this.height;
             if (mx < 0) {
-                mx += width;
+                mx += this.width;
             }
             if (my < 0) {
-                my += height;
+                my += this.height;
             }
-            if (getCell(mx, my)) {
+            if (this.getCell(mx, my)) {
                 combo += 1 << pos;
             }
             pos++;
         }
     }
-    return rule[combo];
+    return this.rule[combo];
 }
 
-function update() {
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-            setBuffer(nextGen(x, y));
+World.prototype.update = function() {
+    for (let y = 0; y < this.height; y++) {
+        for (let x = 0; x < this.width; x++) {
+            this.setBuffer(this.nextGen(x, y));
         }
     }
-    loadBuffer();
+    this.loadBuffer();
 }
