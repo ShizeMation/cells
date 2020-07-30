@@ -15,13 +15,19 @@ ruleTable.innerHTML = ruleBtnsHTML;
 ruleTable.addEventListener("click", (e) => {
     if (e.target && e.target.classList.contains("rule-btn")) {
         let idx = Number(e.target.getAttribute("data-idx"));
-        if (e.target.classList.contains("one")) {
-            e.target.className = "rule-btn zero";
-            world.rule[idx] = false;
-        }
-        else if (e.target.classList.contains("zero")) {
-            e.target.className = "rule-btn one";
-            world.rule[idx] = true;
-        }
+        world.flipRule(idx);
+        updateRuleTable();
     }
 });
+
+function updateRuleTable() {
+    for (let i = 0; i < 512; i++) {
+        let btn = ruleTable.children[i];
+        if (world.rule[i] && !btn.classList.contains("one")) {
+            btn.className = "rule-btn one";
+        }
+        else if (!world.rule[i] && !btn.classList.contains("zero")) {
+            btn.className = "rule-btn zero";
+        }
+    }
+}

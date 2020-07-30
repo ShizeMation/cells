@@ -2,11 +2,11 @@ function World(w, h) {
     this.width = w;
     this.height = h;
 
-    this.world = [];
-    this.world.length = w * h;
-    this.world.fill(false);
+    this.cells = [];
+    this.cells.length = w * h;
+    this.cells.fill(false);
 
-    this.buffer = [...this.world];
+    this.buffer = [...this.cells];
     this.bufferPos = 0;
     
     this.rule = [];
@@ -15,16 +15,20 @@ function World(w, h) {
 }
 
 World.prototype.getCell = function(x, y) {
-    return this.world[y * this.width + x];
+    return this.cells[y * this.width + x];
 };
 
 World.prototype.setCell = function(x, y, s) {
-    this.world[y * this.width + x] = s;
+    this.cells[y * this.width + x] = s;
 };
 
 World.prototype.flipCell = function(x, y) {
     let i = y * this.width + x;
-    this.world[i] = !this.world[i];
+    this.cells[i] = !this.cells[i];
+};
+
+World.prototype.flipRule = function(i) {
+    this.rule[i] = !this.rule[i];
 };
 
 World.prototype.setBuffer = function(s) {
@@ -34,7 +38,7 @@ World.prototype.setBuffer = function(s) {
 };
 
 World.prototype.loadBuffer = function() {
-    this.world = [...this.buffer];
+    this.cells = [...this.buffer];
     this.bufferPos = 0;
 };
 
