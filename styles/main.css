@@ -18,6 +18,8 @@
     display: grid;
     width: fit-content;
     height: fit-content;
+    border-style: solid;
+    border-width: 1px;
     grid-template-columns: repeat(32, 1fr);
     grid-template-rows: repeat(16, 1fr);
 }
@@ -27,24 +29,56 @@
     height: 400px;
     image-rendering: pixelated;
     background-color: #333333;
+    cursor: pointer;
 }
 
 /* js generated buttons */
 
 .rule-btn {
+    position: relative;
+    text-align: center;
+    width: 8px;
+    height: 8px;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.tooltip {
+    position: absolute;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 10px;
-    width: 10px;
-    height: 10px;
-    cursor: pointer;
-    user-select: none;
+    letter-spacing: 3px;
+    border-radius: 4px;
+    padding-left: 2px;
+    width: 31px;
+    height: 33px;
+    left: -2px;
+    top: -35px;
+    color: white;
+    background-color: #333333;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.rule-btn:hover .tooltip {
+    visibility: visible;
 }
 
 .one {
     background-color: #aaffaa;
 }
 
+.one:hover {
+    background-color: #55ff55;
+}
+
 .zero {
     background-color: #ffaaaa;
+}
+
+.zero:hover {
+    background-color: #ff5555;
 }

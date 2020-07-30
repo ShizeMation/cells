@@ -1,13 +1,16 @@
 const surface = document.getElementById("surface");
 
+surface.width = world.width;
+surface.height = world.height;
+
 /** @type {CanvasRenderingContext2D} */
 const c = surface.getContext("2d");
 c.fillStyle = "#aaaaaa";
 
 surface.addEventListener("click", (e) => {
     let rect = e.target.getBoundingClientRect();
-    let x = Math.floor((e.clientX-rect.left)/4);
-    let y = Math.floor((e.clientY-rect.top)/4);
+    let x = Math.floor((e.clientX-rect.left)/pixelSize);
+    let y = Math.floor((e.clientY-rect.top)/pixelSize);
     world.flipCell(x, y);
 });
 
